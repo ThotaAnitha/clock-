@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #333; /* Set the background color for the entire page */
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    .clock {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .time {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .greeting {
+      font-size: 24px;
+    }
+    body.morining{
+      background-color: #ffcc00; /* Morning background color */
+    }
+
+    body.afternion {
+      background-color: #ff6600;
+      background-image: "img.jpg"; /* Afternoon background color */
+    }
+
+    body.evening {
+      background-color: #0066cc; /* Evening background color */
+    }
+
+    body.night {
+      background-color: #330033; /* Night background color */
+    }
+  </style>
+</head>
+<body class="night">
+    <div class="clock"></div>
+    <div class="time" id="time"></div>
+    <div class="greeting" id="greeting"></div>
+  </div>
+
+  <script>
+    function updateClock() {
+      var now = new Date();
+      var hours = now.getHours();
+      var minutes = now.getMinutes();
+      var seconds = now.getSeconds();
+
+      var timeString = `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
+      document.getElementById('time').textContent = timeString;
+
+      // Update the background color based on the time of day
+      var body = document.body;
+      if (hours >= 5 && hours < 12) {
+        body.className = 'night';
+        document.getElementById('greeting').textContent = 'Good night!';
+      } else if (hours >= 12 && hours < 18) {
+        body.className = 'afternoon';
+        document.getElementById('greeting').textContent = 'Good afternoon!';
+      } else if (hours >= 18 && hours < 24) {
+        body.className = 'evening';
+        document.getElementById('greeting').textContent = 'Good evening!';
+      } else {
+        body.className = 'morning';
+        document.getElementById('greeting').textContent = 'Good morning!';
+      }
+    }
+
+    function formatTime(time) {
+      return time < 10 ? '0' + time : time;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock(); // Initial call to display the clock immediately
+  </script>
+</body>
+</html>
